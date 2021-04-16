@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EnterButton" parent="Widget.MaterialComponents.Button">
+        <item name="height">20dp</item>
+        <item name="color">@color/green</item>
+    </style>
+</resources>
