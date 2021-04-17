@@ -1,4 +1,4 @@
-package com.alexko.test
+package com.alexko.test.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

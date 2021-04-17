@@ -15,10 +15,10 @@ import com.alexko.test.app.databinding.FragmentPicturesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PicturesFragment : Fragment(R.layout.fragment_pictures) {
+class PicturesFragment : Fragment(R.layout.fragment_pictures), PicturesListAdapted.Callback {
 
     private val picturesViewModel: PicturesViewModel by viewModels()
-    private val listAdapted = PicturesListAdapted()
+    private val listAdapted = PicturesListAdapted(this)
     private lateinit var binding: FragmentPicturesBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,13 @@ class PicturesFragment : Fragment(R.layout.fragment_pictures) {
                 recyclerView.isGone = false
                 progress.isGone = true
             }
-            listAdapted.submitList(it)
+            listAdapted.submit(it)
         }
+
+        requestMore()
+    }
+
+    override fun requestMore() {
+        picturesViewModel.requestPictures()
     }
 }
