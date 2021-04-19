@@ -5,4 +5,9 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="enter">Войти</string>
+    <string name="auth">Авторизация</string>
+    <string name="auth_wait">Ожидание ответа от сервера</string>
+    <string name="weather_info">Город: %1$s Температура: %2$f Облачность: %3$d Влажность: %4$d</string>
+    <string name="network_error">Ошибка сети %1d</string>
+    <string name="no_info">Нет информации</string>
 </resources>

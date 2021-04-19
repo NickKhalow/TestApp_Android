@@ -2,6 +2,6 @@
 <resources>
     <style name="EnterButton" parent="Widget.MaterialComponents.Button">
         <item name="height">20dp</item>
-        <item name="color">@color/green</item>
+        <item name="backgroundTint">@color/green</item>
     </style>
 </resources>

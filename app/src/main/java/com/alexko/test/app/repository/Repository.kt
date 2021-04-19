@@ -15,5 +15,5 @@ class Repository @Inject constructor(
 ) {
     suspend fun getPictures(page: Int, limit: Int) = picturesService.listPictures(page, limit)
 
-    suspend fun getWeather() = weatherService
+    suspend fun getWeather() = weatherService.getWeather(498817)
 }
