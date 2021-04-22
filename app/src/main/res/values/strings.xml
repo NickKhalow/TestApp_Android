@@ -10,4 +10,7 @@
     <string name="weather_info">Город: %1$s Температура: %2$f Облачность: %3$d Влажность: %4$d</string>
     <string name="network_error">Ошибка сети %1d</string>
     <string name="no_info">Нет информации</string>
+    <string name="error_email">Некорректный адрес почты</string>
+    <string name="error_password">Пароль должен содержать минимум 6 символов, 1 строчную букву, 1 заглавную и 1 цифру</string>
+    <string name="enter_valid_data">Введите корректные данные</string>
 </resources>

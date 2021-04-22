@@ -1,17 +1,12 @@
-package com.alexko.test.app.ui.profile
+package com.alexko.test.app.ui.login
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.alexko.test.app.R
 import com.alexko.test.app.databinding.FragmentProfileBinding
@@ -19,7 +14,6 @@ import com.alexko.test.app.dc.WeatherData
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -32,9 +26,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view).apply {
-            val pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
-            password.editText!!.doAfterTextChanged {
-                password.isErrorEnabled = it != null && pattern.matcher(it).find()
+            login.apply { error = getString(R.string.error_email) }.editText!!.apply {
+                doAfterTextChanged { viewModel.onEmailInput(it as CharSequence) }
+                setText(viewModel.email)
+            }
+            password.apply { error = getString(R.string.error_password) }.editText!!.apply {
+                doAfterTextChanged { viewModel.onPasswordInput(it as CharSequence) }
+                setText(viewModel.password)
             }
             button.setOnClickListener {
                 viewModel.onLogin()
@@ -56,6 +54,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
+                    is ProfileViewModel.Event.EmailValidation -> binding.login.isErrorEnabled =
+                        !event.valid
+                    is ProfileViewModel.Event.PasswordValidation -> binding.password.isErrorEnabled =
+                        !event.valid
+                    ProfileViewModel.Event.RequireValidData -> Toast.makeText(
+                        requireContext(),
+                        R.string.enter_valid_data,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
